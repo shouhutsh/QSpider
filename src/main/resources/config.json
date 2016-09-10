@@ -1,0 +1,92 @@
+{
+  "TASKS": ["_smzdm_", "_smzdm_._page_"],
+
+  "_smzdm_": {
+    "SCEDULER": {
+      "DEPTH": 10,
+      "URL": "http://www.smzdm.com/jingxuan/",
+      "TASKS":{
+        "_task_": {
+          "URL": "href"
+        }
+      }
+    },
+    "PARSER": {
+      "_task_": {
+        "SELECT": ["a.page-turn"],
+        "GET":{"TEXT":"text", "ATTR":"href"},
+        "REGEX":".*下一页.*"
+      },
+      "_img_": {
+        "SELECT": ["li.feed-row-wide", "div.z-feed-img", "img"],
+        "GET": {"ATTR":"src"}
+      },
+      "_content_": {
+        "SELECT": ["li.feed-row-wide", "h5", "a"],
+        "GET": {"TEXT":"text", "ATTR":"href"}
+      }
+    },
+    "SAVER": {
+      "ITEMS": {
+        "_content_": {
+          "FIELDS": ["text", "href"]
+        }
+      },
+      "TASKS": {
+        "_img_": {
+          "URL": "src"
+        }
+      }
+    }
+  },
+
+  "_smzdm_._page_": {
+    "SCEDULER": {
+      "TASKS":{
+        "_content_": {
+          "URL": "href"
+        }
+      }
+    },
+    "PARSER": {
+      "_text_": {
+        "SELECT": ["div.buy", "a"],
+        "GET": {"ATTR":"href"}
+      }
+    },
+    "SAVER": {
+      "ITEMS": {
+        "_text_": {
+          "FIELDS": ["href"]
+        }
+      }
+    }
+  },
+
+  "_aosabook_": {
+    "SCEDULER": {
+      "URL": "http://www.ituring.com.cn/minibook/19"
+    },
+    "PARSER": {
+      "_img_": {
+        "SELECT": ["div.project-content", "p", "a", "img"],
+        "GET": {"ATTR":"src"}
+      },
+      "_title_": {
+        "SELECT": ["div.wf-table", "div", "h1"],
+        "GET": {"TEXT":"text"}
+      },
+      "_content_": {
+        "SELECT": ["div.minibook-item", "div", "h3", "a.question-hyperlink"],
+        "GET": {"TEXT":"text", "ATTR":"href"}
+      }
+    },
+    "SAVER": {
+      "TASKS": {
+        "_content_": {
+          "URL": "href"
+        }
+      }
+    }
+  }
+}
