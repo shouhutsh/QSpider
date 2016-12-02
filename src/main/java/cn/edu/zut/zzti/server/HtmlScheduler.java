@@ -5,6 +5,7 @@ import cn.edu.zut.zzti.model.impl.HtmlTask;
 import cn.edu.zut.zzti.model.impl.LinkItem;
 import cn.edu.zut.zzti.utils.ConfigUtils;
 import cn.edu.zut.zzti.utils.Constants;
+import cn.edu.zut.zzti.utils.HtmlUtils;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class HtmlScheduler implements Scheduler<LinkItem, HtmlTask> {
             for (LinkItem i : items) {
                 for (String type : itemsFilter.keySet()) {
                     if (type.equals(i.getType())) {
-                        allItems.addAll(run(new HtmlTask(String.valueOf(i.get(itemsFilter.getJSONObject(type).getString(Constants.URL))))));
+                        allItems.addAll(run(new HtmlTask(HtmlUtils.getCompleteURL(i.getResource().getTask().getUrl(), String.valueOf(i.get(itemsFilter.getJSONObject(type).getString(Constants.URL)))))));
                     }
                 }
             }

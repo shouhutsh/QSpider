@@ -1,5 +1,136 @@
 {
-  "TASKS": ["_smzdm_", "_smzdm_._page_"],
+  "TASKS": ["_58_", "_58_metro_"],
+
+
+  "_lianjia_": {
+    "SCEDULER": {
+      "URL": "http://sh.lianjia.com/ditiezufang/"
+    },
+    "PARSER": {
+      "_link_": {
+        "SELECT": ["div.filter-box", "div.pd", "div#filter-options", "[class=option-list gio_line]", "a"],
+        "GET":{"ATTR":"href"}
+      }
+    },
+    "SAVER": {
+    }
+  },
+  "_LJ_metro_": {
+    "SCEDULER": {
+      "TASKS":{
+        "_link_": {
+          "URL": "href"
+        }
+      }
+    },
+    "PARSER": {
+      "_metro_name_": {
+        "SELECT": ["div.filter-box", "div.pd", "div#filter-options", "[class=option-list sub-option-list gio_stop]", "a"],
+        "GET":{"TEXT":"text"}
+      },
+      "_metro_link_": {
+        "SELECT": ["div.filter-box", "div.pd", "div#filter-options", "[class=option-list sub-option-list gio_stop]", "a"],
+        "GET":{"ATTR":"href"}
+      }
+    },
+    "SAVER": {
+      "ITEMS": {
+        "_metro_name_": {
+          "FIELDS": ["text"]
+        },
+        "_metro_link_": {
+          "FIELDS": ["href"]
+        }
+      }
+    }
+  },
+
+  "_58_": {
+    "SCEDULER": {
+      "URL": "http://sh.58.com/chuzu/sub/"
+    },
+    "PARSER": {
+      "_link_": {
+        "SELECT": ["div.mainbox", "div.main", "div.search_bd", "[class=secitem secitem_fist subway]", "dd", "a"],
+        "GET":{"ATTR":"href"}
+      }
+    },
+    "SAVER": {
+    }
+  },
+  "_58_metro_": {
+    "SCEDULER": {
+      "TASKS":{
+        "_link_": {
+          "URL": "href"
+        }
+      }
+    },
+    "PARSER": {
+      "_metro_name_": {
+        "SELECT": ["div.mainbox", "div.main", "div.search_bd", "[class=secitem secitem_fist subway]", "dd", "div#sub_one", "a"],
+        "GET":{"TEXT":"text"}
+      },
+      "_metro_link_": {
+        "SELECT": ["div.mainbox", "div.main", "div.search_bd", "[class=secitem secitem_fist subway]", "dd", "div#sub_one", "a"],
+        "GET":{"ATTR":"href"}
+      }
+    },
+    "SAVER": {
+      "ITEMS": {
+        "_metro_name_": {
+          "FIELDS": ["text"]
+        },
+        "_metro_link_": {
+          "FIELDS": ["href"]
+        }
+      }
+    }
+  },
+
+
+  "_movie_": {
+    "SCEDULER": {
+      "URL": "http://gaoqing.la/"
+    },
+    "PARSER": {
+      "_title_": {
+        "SELECT": ["div.mainleft", "ul#post_container", "div.thumbnail", "a"],
+        "GET":{"ATTR":"title"}
+      },
+      "_link_": {
+        "SELECT": ["div.mainleft", "ul#post_container", "div.thumbnail", "a"],
+        "GET":{"ATTR":"href"}
+      }
+    },
+    "SAVER": {
+    }
+  },
+  "_magnet_": {
+    "SCEDULER": {
+      "TASKS":{
+        "_link_": {
+          "URL": "href"
+        }
+      }
+    },
+    "PARSER": {
+      "_addr_": {
+        "SELECT": ["div.container", "div.mainleft", "div#post_content", "a"],
+        "GET":{"ATTR":"href"}
+      }
+    },
+    "SAVER": {
+      "ITEMS": {
+        "_title_": {
+          "FIELDS": ["title"]
+        },
+        "_addr_": {
+          "FIELDS": ["href"]
+        }
+      }
+    }
+  },
 
   "_smzdm_": {
     "SCEDULER": {
@@ -85,6 +216,25 @@
       "TASKS": {
         "_content_": {
           "URL": "href"
+        }
+      }
+    }
+  },
+
+  "_apiStore_": {
+    "SCEDULER": {
+      "URL": "http://apistore.baidu.com/astore/classificationservicelist.html?sortBy=commentCount&isFree=1"
+    },
+    "PARSER": {
+      "_content_": {
+        "SELECT": ["a.dib recommend-link"],
+        "GET": {"TEXT":"text", "ATTR":"href"}
+      }
+    },
+    "SAVER": {
+      "ITEMS": {
+        "_text_": {
+          "FIELDS": ["text", "href"]
         }
       }
     }
